@@ -1,0 +1,21 @@
+{
+    "name": "san/kadex",
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Kadex\\": "src/"
+        },
+        "files": [
+            "src/helpers/helper.php"
+        ]
+    },
+    "authors": [
+    {
+        "name": "officialsan",
+        "email": "officialmailofsanil@gmail.com"
+    }],
+    "require-dev": {
+        "maxbanton/dd": "^1.1"
+    }
+}
