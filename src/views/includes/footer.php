@@ -1,5 +1,4 @@
-
-    <footer>
+  <footer>
         <div class="wave footer"></div>
         <div class="container margin_60_40 fix_mobile">
             <div class="row">
@@ -91,7 +90,7 @@
                     <ul class="additional_links">
                         <li><a href="#0">Terms and conditions</a></li>
                         <li><a href="#0">Privacy</a></li>
-                        <li><span>© FooYes</span></li>
+                        <li><span>©<?= date('y'); ?> Kadex</span></li>
                     </ul>
                 </div>
             </div>
@@ -106,7 +105,8 @@
     <div class="modal_header">
         <h3>Sign In</h3>
     </div>
-    <form>
+    <form method="POST" action="<?= APP_URL; ?>/login">
+         
         <div class="sign-in-wrapper">
             <a href="#0" class="social_bt facebook">Login with Facebook</a>
             <a href="#0" class="social_bt google">Login with Google</a>

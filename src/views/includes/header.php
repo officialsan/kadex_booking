@@ -1,3 +1,6 @@
+<?php
+use Kadex\app\Auth; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,8 +38,12 @@
             </div>
             <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
             <ul id="top_menu">
-                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="#0" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+                <?php if($user = Auth::user()){ ?>
+                    <li><a   class="login"><?= $user->fname; ?></a></li>
+                <?php } else{ ?>  
+                    <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+                <?php } ?>
+                <!-- <li><a href="#0" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li> -->
             </ul>
             <!-- /top_menu -->
             <a href="#0" class="open_close">

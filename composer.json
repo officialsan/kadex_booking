@@ -5,6 +5,7 @@
         "psr-4":
         {
             "Kadex\\": "src/"
+
         },
         "files": [
             "src/helpers/helper.php"
@@ -15,7 +16,8 @@
         "name": "officialsan",
         "email": "officialmailofsanil@gmail.com"
     }],
-    "require-dev": {
+    "require-dev":
+    {
         "maxbanton/dd": "^1.1"
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Kadex\app;
 use PDO;
-class Database 
+abstract class Database 
 {
     public $conn;   
     private $host;
@@ -18,7 +18,7 @@ class Database
         $this->conn = $this->getConnection();
     }
 
-    public function getConnection()
+    private  function getConnection()
     {
         $conn = null;
         try{
@@ -28,5 +28,8 @@ class Database
         }
         return $conn;
     }
-
+    private $table_name;
+    abstract public function getId(int $id) :?object;
+    abstract public function getCount(String $condition = ""):int;
+    abstract public function all();
 }

@@ -77,3 +77,20 @@ function imageUpload(array $file,string $prefix="no_name",string $target="upload
     }
     return ['error' => $error , 'msg'=> $msg ];
 }
+
+function successResponse($message,$title="Success",$code=200)
+{
+    return json_encode([
+            'title' => $title, 
+            'message' => $message, 
+            'icon' => 'success', 
+    ],$code);
+}
+function errorResponse($message,$title="Error",$code=422)
+{
+    return json_encode([
+            'title' => $title, 
+            'message' => $message, 
+            'icon' => 'error', 
+    ],$code);
+}

@@ -7,14 +7,14 @@ use Kadex\app\Database;
 class Services extends Database
 {
     private $table_name = "tb_services";
-
-    public function getId(int $id) :object|bool
+    public $data;
+    public function getId(int $id)  :?object
     {
         $query = "SELECT  * FROM {$this->table_name}  WHERE id = :id LIMIT 1" ;
         $stmt = $this->conn->prepare( $query );
         $stmt->bindValue(':id',$id);
-        if($stmt->execute()) return toObject($stmt->fetch(PDO::FETCH_ASSOC));
-        return false;
+        if($stmt->execute()) return  $this->data = toObject($stmt->fetch(PDO::FETCH_ASSOC));
+        return $this->data ;
     }
 
     public function getCount(String $condition = ""):int
@@ -33,7 +33,7 @@ class Services extends Database
         $query = "SELECT * FROM {$this->table_name} ";  
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
-        return toObject($stmt->fetchAll(PDO::FETCH_ASSOC));
+        return  $this->data =  toObject($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
-
+    
 }

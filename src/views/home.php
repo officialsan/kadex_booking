@@ -1,13 +1,10 @@
 <?php 
-include 'includes/header.php'; 
-use Kadex\app\Services;
-
-$services = (new Services())->all();
-// dd($services);
+require_once 'includes/header.php'; 
 
 ?>
+
  <main>
-        <div class="hero_single version_1">
+        <div class="hero_single version_1"> 
             <div class="opacity-mask">
                 <div class="container">
                     <div class="row">
@@ -25,7 +22,7 @@ $services = (new Services())->all();
                                         <button class="btn_1 gradient" type="submit">Search</button>
                                     </div>
                                 </div>
-                                <!-- /row -->
+                                 
                                 <div class="search_trends">
                                     <h5>Trending:</h5>
                                     <ul>
@@ -38,12 +35,12 @@ $services = (new Services())->all();
                             </form>
                         </div>
                     </div>
-                    <!-- /row -->
+                   
                 </div>
             </div>
             <div class="wave hero"></div>
         </div>
-        <!-- /hero_single -->
+     
 
         <div class="container margin_30_60">
             <div class="main_title center">
@@ -51,10 +48,10 @@ $services = (new Services())->all();
                 <h2>Popular Categories</h2>
                 <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
             </div>
-            <!-- /main_title -->
-
+             
             <div class="owl-carousel owl-theme categories_carousel">
-                <?php foreach($services as $service){ ?>
+  
+                <?php    foreach($services as $service){ ?>
                     <div class="item_version_2">
                         <a href="grid-listing-filterscol.html">
                             <figure>
