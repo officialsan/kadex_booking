@@ -1,14 +1,20 @@
 <?php
 namespace Kadex\app;
 use PDO;
+use PDOException;
 abstract class Database 
-{
+{    
+    /**
+     * conn
+     *
+     * @var ?PDO
+     */
     public $conn;   
     private $host;
     private $db_name;
     private $username;
     private $password;
-
+    private $table_name; 
     public function __construct()
     {
         $this->host = HOST;
@@ -17,7 +23,12 @@ abstract class Database
         $this->password = "";
         $this->conn = $this->getConnection();
     }
-
+    
+    /**
+     * getConnection
+     * Connecting with database
+     * @return ?PDO
+     */
     private  function getConnection()
     {
         $conn = null;
@@ -28,8 +39,25 @@ abstract class Database
         }
         return $conn;
     }
-    private $table_name;
-    abstract public function getId(int $id) :?object;
-    abstract public function getCount(String $condition = ""):int;
+       
+    /**
+     * getId
+     * Get the data with Id 
+     * @param  mixed $id
+     * @return object
+     */
+    abstract public function getId(int $id) :?object;    
+    /**
+     * getCount
+     * Get the count with condition
+     * @param  mixed $condition
+     * @return int
+     */
+    abstract public function getCount(String $condition = ""):int;    
+    /**
+     * all
+     * get all data
+     * 
+     */
     abstract public function all();
 }

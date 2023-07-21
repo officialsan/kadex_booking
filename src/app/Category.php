@@ -4,9 +4,9 @@ namespace Kadex\app;
 use PDO;
 use Kadex\app\Database;
 
-class Services extends Database
+class Category extends Database
 {
-    private $table_name = "tb_services";
+    private $table_name = "tb_category";
     public $data;
     public function getId(int $id)  :?object
     {
@@ -33,14 +33,13 @@ class Services extends Database
         $query = "SELECT * FROM {$this->table_name} ";  
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
-        return  $this->data =  toObject($stmt->fetchAll(PDO::FETCH_ASSOC));
+        return  $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function whereIn(array $ids)
     {
         $ids = join("','",$ids);
-        $query = "SELECT * FROM {$this->table_name} WHERE id IN (:ids)";  
+        $query = "SELECT * FROM {$this->table_name} WHERE id IN ('$ids')"; 
         $stmt = $this->conn->prepare( $query );
-        $stmt->bindValue(':ids',$ids);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

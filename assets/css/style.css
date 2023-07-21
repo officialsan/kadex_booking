@@ -4909,7 +4909,7 @@ ul.additional_links li:after {
 
 .form-control {
   padding: 10px;
-  height: 40px;
+  /* height: 40px; */
   font-size: 14px;
   font-size: 0.875rem;
   -webkit-border-radius: 3px;

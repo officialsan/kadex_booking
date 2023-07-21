@@ -19,12 +19,13 @@ class Auth
 	{
 
 		if(!isset($request['password'])) return false;
-		if(!$user->data->password === md5($request['password'])){
-			 return errorResponse('Incorrect password');
+		// dd(md5($request['password']));
+		if( $user->data->password != md5($request['password']) ){
+			 return false;
 		}
 		$_SESSION['user_id'] = base64_encode($user->data->id) ;
 		$_SESSION['user'] =  $user->data;
-		return successResponse('success');
+		return true;
 		 
 	}
 	static function logout()
@@ -33,6 +34,11 @@ class Auth
 	}
 	static function user ():?Object
 	{ 
-		return $_SESSION['user'] ?? null;
+		if(!isset($_SESSION['user_id'])) return null;
+		return (new User())->getId(base64_decode($_SESSION['user_id']));
+	}
+	static function getUserId()
+	{
+		return $_SESSION['user_id'];
 	}
 }

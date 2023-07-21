@@ -1,5 +1,11 @@
 <?php 
  
+/**
+ * toObject
+ *
+ * @param  mixed $array
+ * @return object
+ */
 function toObject(array $array) :object|bool
 {
 	return is_array($array) ? (Object)$array : false;
@@ -78,19 +84,21 @@ function imageUpload(array $file,string $prefix="no_name",string $target="upload
     return ['error' => $error , 'msg'=> $msg ];
 }
 
-function successResponse($message,$title="Success",$code=200)
+function successResponse($message,$status="Success",$data=[],$code=200)
 {
     return json_encode([
-            'title' => $title, 
+            'status' => $status, 
             'message' => $message, 
+            'data' => $data, 
             'icon' => 'success', 
     ],$code);
 }
-function errorResponse($message,$title="Error",$code=422)
+function errorResponse($message,$status="Error",$data=[],$code=422)
 {
     return json_encode([
-            'title' => $title, 
+            'status' => $status, 
             'message' => $message, 
+            'data' => $data, 
             'icon' => 'error', 
     ],$code);
 }

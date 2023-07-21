@@ -441,7 +441,7 @@
   box-shadow: 0px 22px 24px 0px rgba(46, 51, 51, 0.05);
 }
 
-a.menu_item {
+.menu_item {
   background-color: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -457,22 +457,22 @@ a.menu_item {
   margin-bottom: 30px;
 }
 @media (max-width: 767px) {
-  a.menu_item {
+  .menu_item {
     margin-bottom: 15px;
   }
 }
-a.menu_item h3 {
+.menu_item h3 {
   font-size: 16px;
   font-size: 1rem;
   margin-bottom: 0;
 }
-a.menu_item p {
+.menu_item p {
   color: #777;
   margin-bottom: 10px;
   font-size: 13px;
   font-size: 0.8125rem;
 }
-a.menu_item figure {
+.menu_item figure {
   width: 70px;
   height: 70px;
   overflow: hidden;
@@ -486,16 +486,16 @@ a.menu_item figure {
   -ms-border-radius: 3px;
   border-radius: 3px;
 }
-a.menu_item figure img {
+.menu_item figure img {
   width: 70px;
   height: auto;
 }
-a.menu_item:hover {
+.menu_item:hover {
   -webkit-box-shadow: 0px 22px 24px 0px rgba(46, 51, 51, 0.1);
   -moz-box-shadow: 0px 22px 24px 0px rgba(46, 51, 51, 0.1);
   box-shadow: 0px 22px 24px 0px rgba(46, 51, 51, 0.1);
 }
-a.menu_item:hover h3 {
+.menu_item:hover h3 {
   color: #e54750;
 }
 

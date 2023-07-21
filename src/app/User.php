@@ -48,15 +48,16 @@ class User extends Database
         if(!$this->data) return false;
         $query = "INSERT INTO  {$this->table_name} (fname,lname,phone,email,city,landmark,address,country,active) VALUES (:fname,:lname,:phone,:email,:city,:landmark,:address,:country,:active)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':fname',$this->data->fname);
-        $stmt->bindValue(':lname',$this->data->lname);
-        $stmt->bindValue(':phone',$this->data->phone);
-        $stmt->bindValue(':email',$this->data->email);
-        $stmt->bindValue(':city',$this->data->city);
-        $stmt->bindValue(':landmark',$this->data->landmark);
-        $stmt->bindValue(':address',$this->data->address);
-        $stmt->bindValue(':country',$this->data->country);
-        $stmt->bindValue(':active',$this->data->active);
+        $stmt->bindValue(':fname',$this->data['fname']);
+        $stmt->bindValue(':lname',$this->data['lname']);
+        $stmt->bindValue(':phone',$this->data['phone']);
+        $stmt->bindValue(':email',$this->data['email']);
+        $stmt->bindValue(':city',$this->data['city']);
+        $stmt->bindValue(':landmark',$this->data['landmark']);
+        $stmt->bindValue(':address',$this->data['address']);
+        $stmt->bindValue(':country',$this->data['country']);
+        $stmt->bindValue(':password',md5($this->data['password']));
+        $stmt->bindValue(':active',1);
         return $stmt->execute() ? true : false;
     }
     

@@ -1,3 +1,38 @@
-/*============================================================================================*/
-/* Your custom styles below */
-/*============================================================================================*/
+.error{
+    color: red;
+}
+.user-icon{
+    line-height: 42px;
+}
+.dropdown-menu li{
+    width: 100%;
+}
+.bgtheme{
+    background-color:#faf3cc !important;
+} 
+.text-right{
+    text-align: right;
+}
+.pr-20{
+    padding-right: 20px !important;
+}
+.numbers-row{
+    width: 50%;
+    float: right;
+}
+.float-left{
+    float: left;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator
+ {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    width: 25px;
+    height: 25px;
+    font-family: "ElegantIcons";
+    content: "\e023";
+    font-weight: 300;
+    border-width: thin;
+} 

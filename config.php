@@ -3,6 +3,7 @@
 define('APP_DOMAIN', 'http://localhost');
 define('APP_PATH', '/kadex');
 define('APP_URL', 'http://localhost/kadex');
+define('CURRENCY', 'AED');
 
 
 // database 
