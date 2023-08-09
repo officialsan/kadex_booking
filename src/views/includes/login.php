@@ -4,34 +4,21 @@
         <h3>Sign In</h3>
     </div>
     <form method="POST" id="login-form" action="<?= APP_URL; ?>/login">
-         
+
         <div class="sign-in-wrapper">
             <!-- <a href="#0" class="social_bt facebook">Login with Facebook</a>
             <a href="#0" class="social_bt google">Login with Google</a>
             <div class="divider"><span>Or</span></div> -->
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control" name="email" id="email">
-                <i class="icon_mail_alt"></i>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password" id="password" value="">
-                <i class="icon_lock_alt"></i>
-            </div>
-            <div class="clearfix add_bottom_15">
-                <div class="checkboxes float-start">
-                    <label class="container_check">Remember me
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-                <div class="float-end"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
+                <label>Mobile Number</label>
+                <input type="number" class="form-control" name="phone" id="phone">
+                <i class="">+971</i>
             </div>
             <div class="text-center">
-                <p class="error"  id="login-submit-error" ></p>
-                <input id="login-submit-btn" type="submit" value="Log In" class="btn_1 full-width mb_5">
-                Don’t have an account? <a href="<?= APP_URL; ?>/signup">Sign up</a>
+                <p class="error" id="login-submit-error"></p>
+                <input id="login-submit-btn" type="submit" value="Send Otp" class="btn_1 full-width mb_5">
+                <!-- Don’t have an account?
+                <a href="<?= APP_URL; ?>/signup">Sign up</a> -->
             </div>
             <div id="forgot_pw">
                 <div class="form-group">
@@ -40,7 +27,25 @@
                     <i class="icon_mail_alt"></i>
                 </div>
                 <p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
-                <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
+                <div class="text-center">
+                    <input type="submit" value="Reset Password" class="btn_1">
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--form -->
+    <form method="POST" id="otp-form" action="<?= APP_URL; ?>/check-otp" style="display:none">
+        <div class="sign-in-wrapper">
+            <div class="form-group">
+                <label>Enter Otp</label>
+                <input type="number" class="form-control" name="otp" id="otp">
+                <input type="hidden" class="form-control" name="phone" id="otp-phone">
+                <i class="icon_lock_alt"></i>
+            </div>
+            <div class="text-center">
+                <p class="error" id="otp-submit-error"></p>
+                <input id="otp-submit-btn" type="submit" value="Submit" class="btn_1 full-width mb_5"> Don’t change phone number?
+                <a href="javascript::void(0)" onclick="showLoginPhone()">Click here</a>
             </div>
         </div>
     </form>

@@ -37,10 +37,12 @@ require_once 'includes/header.php';
                             <div class="col-md-6">
                                 <div class="menu_item pr-20 " href="<?= APP_URL ?>/modal-product/<?= $product['id'] ?>" data-id="<?= $product['id']; ?>"
                                     data-task="<?= $product['tasks'] ?>">
-                                    <!-- <figure>
+                                    <!-- 
+                                        <figure>
                                             <img src="<?= APP_URL; ?>/assets/img/menu-thumb-placeholder.jpg" data-src="<?= APP_URL; ?>/assets/img/menu-thumb-1.jpg" alt="thumb"
                                                 class="lazy">
-                                        </figure> -->
+                                        </figure> 
+                                    -->
                                     <h3>
                                         <?= $product['product']; ?>
                                     </h3>
@@ -67,7 +69,7 @@ require_once 'includes/header.php';
                 </div>
                 <!-- /col -->
                 <div class="col-lg-4  " id="sidebar_fixed">
-                    <?php view('cart'); ?>
+                    <?php view('cart',['action'=>'orderNow']); ?>
                 </div>
             </div>
             <!-- /row -->

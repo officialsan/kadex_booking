@@ -4,14 +4,19 @@ $(document).ready(function() {
     $('.data-popup').magnificPopup({
         type: 'ajax'
     });
+    $('#sign-in-otp-dialog').magnificPopup({
+        type: 'inline',
+    });
     $('.san-add-to-cart').click(function() {
         let id = $(this).val();
+        let  action = 'orderNow';
         let quantity = $(".quantity-" + id).val();
         $.ajax({
             url: APP_URL+"/add-to-cart",
             data: {
                 id: id,
-                quantity: quantity
+                quantity: quantity,
+                action: action
             },
             success: function(response) {
                 response = JSON.parse(response);
@@ -41,30 +46,55 @@ $(document).ready(function() {
     });
     $("#login-form").validate({
         rules:{
-            email:{
+            phone:{
                     required:true,
-                    email:true,
-                }, 
-            password: {
-                    required: true,
                     minlength: 8
-                }, 
+                } 
         },
         submitHandler: function() {
             var form_data = $("#login-form").serialize();
             $('#login-submit-error').html("")
-            $.post(APP_URL+"/login", form_data)
-                .done(function(data) {
-                    console.log(data)
-                    data = JSON.parse(data);
-                    if(data.status == "Error") {
-                        $('#login-submit-error').html(data.message);
+            $.post(APP_URL+"/get-otp", form_data)
+                .done(function(response) {
+                    console.log(response)
+                    response = JSON.parse(response);
+                    if(response.status == "Error") {
+                        $('#login-submit-error').html(response.message);
                         return false;
                     }   
-                    else {
-                        sanAlert("Your logged in successfully",false);
-                        setTimeout(window.location.reload(), 1000); 
-                    }                
+                    $("#otp-phone").val(response.data.phone);
+                    showLoginOtp();
+                    sanAlert(response.message,false);
+                    return true;
+                });
+        },
+    }); 
+    $("#otp-form").validate({
+        rules:{
+            otp:{
+                    required:true,
+                    minlength: 6,  // <- here
+                    maxlength: 6,
+                } 
+        },
+        submitHandler: function() {
+            var form_data = $("#otp-form").serialize();
+            $('#otp-submit-error').html("")
+            $.post(APP_URL+"/check-otp", form_data)
+                .done(function(response) {
+                    console.log(response)
+                    response = JSON.parse(response);
+                    if(response.status == "Error") {
+                        $('#otp-submit-error').html(response.message);
+                        return false;
+                    }   
+                    sanAlert(response.message,false);
+                    if(response.data.userExist){
+                        window.location.reload();
+                    }
+                    window.location.href = APP_URL + "/signup?m="+response.data.phone;
+                    return true;
+                      
                 });
         },
     });
@@ -80,44 +110,41 @@ $(document).ready(function() {
                     required:true,
                     email:true,
                 }, 
-            password: {
-                    required: true,
-                    minlength: 8
-                }, 
+         
         },
         submitHandler: function() {
-            var form_data = $("#login-form").serialize();
-            $('#login-submit-error').html("")
+            var form_data = $("#register-form").serialize();
+            $('#register-submit-error').html("")
             $.post(APP_URL+"/register", form_data)
                 .done(function(data) {
                     console.log(data)
                     data = JSON.parse(data);
                     if(data.status == "Error") {
-                        $('#login-submit-error').html(data.message);
+                        $('#register-submit-error').html(data.message);
                         return false;
                     }   
                     else {
                         sanAlert("Registration success",false);
-                        setTimeout(window.location.reload(), 1000); 
-                       
+                        window.location.href = APP_URL;
                     }                
                 });
         },
     });
 });
 
-function removeItem(id) {
+function removeItem(id,action="orderNow") {
     $.ajax({
         url: APP_URL + "/remove-item",
         data: {
-            id: id
+            id: id,
+            action: action
         },
         success: function(response) {
             response = JSON.parse(response);
             console.log(response.data);
             let isError = (response.status == "Error");
             sanAlert(response.message, isError);
-            $('#sidebar_fixed').html(response.data)
+            $('#sidebar_fixed').html(response.data);
         }
     });
 }
@@ -172,4 +199,33 @@ function orderNow() {
             window.location.href = APP_URL +"/checkout"
         }
     });
+}
+function orderSubmit() {
+     let data = $('#order-form').serialize();
+    $.ajax({
+        url: APP_URL +"/order-submit",
+        type: "POST",
+        data: data,
+        success: function(response) {
+            response = JSON.parse(response);
+            console.log(response.data);
+            if (response.status == "Error") {
+                sanAlert(response.message);
+                return false;
+            }
+            if(LOGGIN == 0){
+                $('#sign-in').click();
+                return false;
+            }
+            window.location.href = APP_URL +"/confirm"
+        }
+    });
+}
+function showLoginPhone(){
+    $('#otp-form').hide();
+    $('#login-form').show();
+}
+function showLoginOtp(){
+    $('#login-form').hide();
+    $('#otp-form').show();
 }

@@ -49,6 +49,7 @@ class HomeController {
 	static function addToCart()
 	{
 		$product_id = $_GET['id'];
+		$action = $_GET['action'];
 		// dd($product_id);
 		$quantity = $_GET['quantity'] ?? 1;
 		$product =  (new Product())->getId( $product_id);
@@ -60,14 +61,15 @@ class HomeController {
             'total_price' =>  $product->price * $quantity,
         ];
 		$cart = new Cart();
-		return $cart->addCart($item);
+		return $cart->addCart($item,$action);
 
 	}
 	static function removeItem()
 	{
 		$product_id = $_GET['id'];
+		$action = $_GET['action'];
 		$cart = new Cart();
-		return $cart->removeItem($product_id);
+		return $cart->removeItem($product_id,$action);
 	}
 	static function updateDateAndTime()
 	{
@@ -83,13 +85,13 @@ class HomeController {
 		$countries = $countries->all();
 		return view('checkout',['countries' => $countries]);
 	}
-	static function orderNow()
+	static function orderSubmit()
 	{
-		if(!$user = Auth::user()) return redirect('/');
+		if(!$user = Auth::user()) return errorResponse('Something went wrong');
 		// Shipping address upload
 		$shipping = new Shipping();
 		$shipping->data = $_POST;
-		if($shipping->save() == false) errorResponse('Something went wrong');
+		if($shipping->save() == false) return errorResponse('Something went wrong');
 		$shipping_id = $shipping->data['id'];
 		// cart upload 
 		$cart = new Cart();
@@ -114,7 +116,11 @@ class HomeController {
 					'completed' =>0  
 		];
 		if(!$order->save()) return errorResponse('Something went wrong');
-		$cart->
+		$cart->distroyCart();
 		return successResponse('Order completed');
+	}
+	static function  confirm()
+	{
+		return view('confirm');
 	}
 }

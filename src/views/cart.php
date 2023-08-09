@@ -15,7 +15,7 @@ if(isset($cart['subTotal']) && $cart['subTotal'] > 0 ) {                   ?>
         <ul class="clearfix">
             <?php foreach($items as $item) { ?>
             <li>
-                <a href="#0" onclick="removeItem(<?= $item['product_id'] ?>)">
+                <a href="#0" onclick="removeItem(<?= $item['product_id'] ?>,'<?= $action ?>')">
                     <?=$item['quantity']?>x
                         <?= $item['product_name']; ?>
                 </a>
@@ -40,9 +40,10 @@ if(isset($cart['subTotal']) && $cart['subTotal'] > 0 ) {                   ?>
         <div class="mb-2">
             <input name="time" type="time" id="time" value="<?= $cart['time']; ?>" class="form-control">
         </div>
-
         <div class="btn_1_mobile">
-            <button class="btn_1 gradient full-width mb_5 order-now" onclick="orderNow()">Order Now</button>
+            <button class="btn_1 gradient full-width mb_5 order-now text-capitalize" onclick="<?= $action ?>()">
+                <?= camelCaseToSpaceSeparated($action) ?>
+            </button>
             <div class="text-center">
                 <small>No money charged on this steps</small>
             </div>

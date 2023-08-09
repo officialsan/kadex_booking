@@ -102,3 +102,9 @@ function errorResponse($message,$status="Error",$data=[],$code=422)
             'icon' => 'error', 
     ],$code);
 }
+function camelCaseToSpaceSeparated($input) {
+    $pattern = '/(?<=\\w)(?=[A-Z])/';
+    $replacement = ' ';
+    $result = preg_replace($pattern, $replacement, $input);
+    return strtolower($result);
+}

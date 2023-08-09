@@ -170,6 +170,7 @@
     </div>
 </div>
 <?php include_once 'login.php'; ?>
+<?php include_once 'otp.php'; ?>
 
 <!-- COMMON SCRIPTS -->
 <script src="<?= APP_URL ?>/assets/js/common_scripts.min.js"></script>

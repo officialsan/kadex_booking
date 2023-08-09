@@ -22,72 +22,77 @@ $user = Auth::user();
                         </div>
                         <!-- /head -->
                         <div class="main">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>First Name</label>
-                                        <input class="form-control" name="fname" value="<?= $user->fname; ?>" placeholder="First Name">
+                            <form id="order-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input class="form-control" name="fname" value="<?= $user->fname; ?>" placeholder="First Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control" name="lname" value="<?= $user->lname; ?>" placeholder="Last Name">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input class="form-control" name="lname" value="<?= $user->lname; ?>" placeholder="Last Name">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Email Address</label>
+                                            <input class="form-control" name="email" value="<?= $user->email; ?>" placeholder="Email Address">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone</label>
+                                            <input class="form-control" name="phone" value="<?= $user->phone; ?>" placeholder="Phone">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Email Address</label>
-                                        <input class="form-control" name="email" value="<?= $user->email; ?>" placeholder="Email Address">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input class="form-control" name="city" value="<?= $user->city; ?>" placeholder="City">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Landmark</label>
+                                            <input class="form-control" name="landmark" value="<?= $user->landmark; ?>" placeholder="landmark">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <select class="form-control" name="country">
+                                                <option> Select a country</option>
+                                                <?php foreach($countries  as $country) { ?>
+                                                <option value="<?= $country['id'] ?>" <?php if($country[ 'id']==$user->country) { echo 'selected';} ?>>
+                                                    <?= $country['country'] ?>
+                                                </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <input class="form-control" name="phone" value="<?= $user->phone; ?>" placeholder="Phone">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" name="address" rows="3"><?= nl2br($user->address); ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Instructions</label>
+                                            <textarea class="form-control" name="instructions" rows="3"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>City</label>
-                                        <input class="form-control" name="city" value="<?= $user->city; ?>" placeholder="City">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Landmark</label>
-                                        <input class="form-control" name="landmark" value="<?= $user->landmark; ?>" placeholder="landmark">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Country</label>
-                                        <select class="form-control" name="country">
-                                            <option> Select a country</option>
-                                            <?php foreach($countries  as $country) { ?>
-                                            <option value="<?= $country['id'] ?>" <?php if($country[ 'id']==$user->country) { echo 'selected';} ?>>
-                                                <?= $country['country'] ?>
-                                            </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <textarea class="form-control" name="address" rows="3"><?= nl2br($user->address); ?></textarea>
-                                    </div>
-                                </div>
-
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <!-- /box_order_form -->
@@ -167,7 +172,7 @@ $user = Auth::user();
                 </div>
                 <!-- /col -->
                 <div class="col-xl-4 col-lg-4" id="sidebar_fixed">
-                    <?php view('cart'); ?>
+                    <?php view('cart',['action'=>'orderSubmit']); ?>
                 </div>
 
             </div>
@@ -179,66 +184,7 @@ $user = Auth::user();
 
 
     <?php include 'includes/footer.php';?>
-    <script>
-        $(document).ready(function() {
-            $('.data-popup').magnificPopup({
-                type: 'ajax'
-            });
-            $('.san-add-to-cart').click(function() {
-                let id = $(this).val();
-                let quantity = $(".quantity-" + id).val();
-                $.ajax({
-                    url: "<?= APP_URL ?>/add-to-cart",
-                    data: {
-                        id: id,
-                        quantity: quantity
-                    },
-                    success: function(response) {
-                        response = JSON.parse(response);
-                        let isError = (response.status == "Error");
-                        sanAlert(response.message, isError);
-                        console.log(response.data);
-                        if (response.data.length) $('#sidebar_fixed').html(response.data)
-                    }
-                });
-            });
-            // Input incrementer
-            $(".numbers-row").append('<div class="inc button_inc">+</div><div class="dec button_inc">-</div>');
-            $(".button_inc").on('click', function() {
 
-                var $button = $(this);
-                var oldValue = $button.parent().find("input").val();
-
-                if ($button.text() == "+") {
-                    var newVal = parseFloat(oldValue) + 1;
-                } else {
-                    // Don't allow decrementing below zero
-                    if (oldValue > 1) {
-                        var newVal = parseFloat(oldValue) - 1;
-                    } else {
-                        newVal = 1;
-                    }
-                }
-                $button.parent().find("input").val(newVal);
-            });
-        });
-
-        function removeItem(id) {
-            $.ajax({
-                url: "<?= APP_URL ?>/remove-item",
-                data: {
-                    id: id
-                },
-                success: function(response) {
-                    response = JSON.parse(response);
-                    console.log(response.data);
-                    let isError = (response.status == "Error");
-                    sanAlert(response.message, isError);
-                    $('#sidebar_fixed').html(response.data)
-                }
-            });
-        }
-    </script>
     </body>
 
     </html>

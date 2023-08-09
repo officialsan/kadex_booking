@@ -15,14 +15,9 @@ class Auth
 		return $this->session !== null;
 	}
 
-	static function login(User $user, $request)
+	static function login( $user)
 	{
-
-		if(!isset($request['password'])) return false;
-		// dd(md5($request['password']));
-		if( $user->data->password != md5($request['password']) ){
-			 return false;
-		}
+		if(!$user->data) return false;
 		$_SESSION['user_id'] = base64_encode($user->data->id) ;
 		$_SESSION['user'] =  $user->data;
 		return true;

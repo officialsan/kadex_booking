@@ -39,7 +39,7 @@ use Kadex\app\Auth;
         <header class="header black_nav clearfix element_to_stick">
             <div class="container">
                 <div id="logo">
-                    <a href="index.html">
+                    <a href="<?= APP_URL; ?>">
                         <img src="<?= APP_URL; ?>/assets/img/logo_sticky.svg" width="162" height="35" alt="">
                     </a>
                 </div>
@@ -79,7 +79,7 @@ use Kadex\app\Auth;
                             <i class="icon_close"></i>
                             <span>Menu</span>
                         </a>
-                        <a href="index.html">
+                        <a href="<?= APP_URL; ?>">
                             <img src="<?= APP_URL; ?>/assets/img/logo.svg" width="162" height="35" alt="">
                         </a>
                     </div>
@@ -93,7 +93,7 @@ use Kadex\app\Auth;
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="index.html">Address Autocomplete</a>
+                                    <a href="<?= APP_URL; ?>">Address Autocomplete</a>
                                 </li>
                                 <li>
                                     <a href="index-2.html">Search by Keyword</a>
@@ -220,7 +220,7 @@ use Kadex\app\Auth;
                             <a href="#0" class="show-submenu">Other Pages</a>
                             <ul>
                                 <li>
-                                    <a href="admin_section/index.html" target="_blank">Admin Section</a>
+                                    <a href="<?= APP_URL; ?>" target="_blank">Admin Section</a>
                                 </li>
                                 <li>
                                     <a href="404.html">404 Error</a>
@@ -238,7 +238,7 @@ use Kadex\app\Auth;
                                     <a href="contacts.html">Contacts</a>
                                 </li>
                                 <li>
-                                    <a href="coming_soon/index.html">Coming Soon</a>
+                                    <a href="<?= APP_URL; ?>">Coming Soon</a>
                                 </li>
                                 <li>
                                     <a href="login.html">Sign In</a>

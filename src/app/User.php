@@ -7,7 +7,7 @@ use Kadex\app\Database;
 class User extends Database
 {
     private $table_name = "tb_user_list";
-    public $data;
+    public object $data;
     public function getId(int $id) :?object
     {
         $query = "SELECT  * FROM {$this->table_name}  WHERE id = :id LIMIT 1" ;
@@ -43,25 +43,33 @@ class User extends Database
         if($stmt->execute() && $data = $stmt->fetch(PDO::FETCH_ASSOC) ) return $this->data = toObject($data);
         return $this->data;
     }
+    public function getByPhone(string $phone):?object
+    {
+        $query = "SELECT  * FROM {$this->table_name}  WHERE phone = :phone LIMIT 1" ;
+        $stmt = $this->conn->prepare( $query );
+        $stmt->bindValue(':phone',$phone);
+        if($stmt->execute() && $data = $stmt->fetch(PDO::FETCH_ASSOC) ) return $this->data = toObject($data);
+        return $this->data;
+    }
     public function save(): bool
     {
         if(!$this->data) return false;
-        $query = "INSERT INTO  {$this->table_name} (fname,lname,phone,email,city,landmark,address,country,active) VALUES (:fname,:lname,:phone,:email,:city,:landmark,:address,:country,:active)";
+        $query = "INSERT INTO  {$this->table_name} (fname,lname,phone_code,phone,email,city,landmark,address,country,active) VALUES (:fname,:lname,:phone_code,:phone,:email,:city,:landmark,:address,:country,:active)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(':fname',$this->data['fname']);
-        $stmt->bindValue(':lname',$this->data['lname']);
-        $stmt->bindValue(':phone',$this->data['phone']);
-        $stmt->bindValue(':email',$this->data['email']);
-        $stmt->bindValue(':city',$this->data['city']);
-        $stmt->bindValue(':landmark',$this->data['landmark']);
-        $stmt->bindValue(':address',$this->data['address']);
-        $stmt->bindValue(':country',$this->data['country']);
-        $stmt->bindValue(':password',md5($this->data['password']));
+        $stmt->bindValue(':fname',$this->data->fname);
+        $stmt->bindValue(':lname',$this->data->lname);
+        $stmt->bindValue(':phone_code','+971');
+        $stmt->bindValue(':phone',$this->data->phone);
+        $stmt->bindValue(':email',$this->data->email);
+        $stmt->bindValue(':city',$this->data->city);
+        $stmt->bindValue(':landmark',$this->data->landmark);
+        $stmt->bindValue(':address',$this->data->address);
+        $stmt->bindValue(':country',$this->data->country);
         $stmt->bindValue(':active',1);
-        return $stmt->execute() ? true : false;
+        if ($stmt->execute()) {
+            $this->data->id = $this->conn->lastInsertId();
+            return true;
+        }
+        return false;
     }
-    
-
-
-
 }

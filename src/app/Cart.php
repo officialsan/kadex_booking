@@ -64,13 +64,13 @@ class Cart extends Database
      *    ]
      * 
      */
-    public function addCart($item)
+    public function addCart($item,$action ="orderNow")
     {
         
         if($this->checkItemExist($item['product_id'])) return errorResponse('Item already exist in cart');
         $this->cart['items'][] = $item;
         $this->updateCart();
-        $cartDiv = render('cart');
+        $cartDiv = render('cart',['action'=>$action]);
         return successResponse('Item successFully added to cart','success',$cartDiv);
     }
     private function updateCart()
@@ -91,12 +91,12 @@ class Cart extends Database
         $this->cart = [];
         unset($_SESSION['cart']);
     }
-    public function  removeItem($product_id)
+    public function  removeItem($product_id,$action="orderNow")
     {
         $key = array_search($product_id , array_column($this->cart['items'], 'product_id'));
         array_splice($this->cart['items'], $key,1);
         $this->updateCart();
-        $cartDiv = render('cart');
+        $cartDiv = render('cart',['action'=>$action]);
         return successResponse('Item successFully removed from cart','success',$cartDiv);
     }
     public function getCart()
